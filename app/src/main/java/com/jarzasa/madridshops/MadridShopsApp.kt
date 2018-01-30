@@ -13,6 +13,9 @@ class MadridShopsApp: MultiDexApplication() {
         super.onCreate()
 
         val allShopsInteractor = GetAllShopsInteractorFakeImpl()
+
+        /*
+        //Invocación del modo Java
         allShopsInteractor.execute(
                 success = object: SuccessCompletion<Shops> {
                     override fun successCompletion(e: Shops) {
@@ -23,6 +26,16 @@ class MadridShopsApp: MultiDexApplication() {
                     override fun errorCompletion(errorMessage: String) {
                         Log.d("Shops", "Error: " + errorMessage)
                     }
+                }
+        )
+        */
+        //Invocación del modo Kotlin
+        allShopsInteractor.execute(
+                success = { shops: Shops ->
+                    Log.d("Shops", "Count: " + shops.count())
+                },
+                error = { error: String ->
+                    Log.d("Shops", "Error: " + error)
                 }
         )
     }

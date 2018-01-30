@@ -4,9 +4,11 @@ import com.jarzasa.madridshops.domain.model.Shop
 import com.jarzasa.madridshops.domain.model.Shops
 
 class GetAllShopsInteractorFakeImpl: GetAllShopsInteractor {
+
+    //Forma mas Java de implementación
     override fun execute(success: SuccessCompletion<Shops>,
                          error: ErrorCompletion) {
-        var allOK = false
+        var allOK = true
 
         //Connect to the Repository
 
@@ -15,6 +17,20 @@ class GetAllShopsInteractorFakeImpl: GetAllShopsInteractor {
             success.successCompletion(shops)
         } else {
             error.errorCompletion("Error while accessing the Repository")
+        }
+    }
+
+    //Forma mas Kottlin de implementación
+    fun execute(success: SuccessClosure, error: ErrorClosure) {
+        var allOK = true
+
+        //Connect to the Repository
+
+        if (allOK) {
+            val shops = createFakeListOfShops()
+            success(shops)
+        } else {
+            error("Error while accessing the Repository")
         }
     }
 
