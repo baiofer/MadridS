@@ -1,5 +1,9 @@
-package com.jarzasa.madridshops.domain.interactors
+package com.jarzasa.madridshops.domain.interactors.getallshops
 
+import com.jarzasa.madridshops.domain.interactors.ErrorClosure
+import com.jarzasa.madridshops.domain.interactors.ErrorCompletion
+import com.jarzasa.madridshops.domain.interactors.SuccessClosure
+import com.jarzasa.madridshops.domain.interactors.SuccessCompletion
 import com.jarzasa.madridshops.domain.model.Shop
 import com.jarzasa.madridshops.domain.model.Shops
 
@@ -8,7 +12,7 @@ class GetAllShopsInteractorFakeImpl: GetAllShopsInteractor {
     //Forma mas Java de implementación
     override fun execute(success: SuccessCompletion<Shops>,
                          error: ErrorCompletion) {
-        var allOK = true
+        val allOK = true
 
         //Connect to the Repository
 
@@ -22,7 +26,7 @@ class GetAllShopsInteractorFakeImpl: GetAllShopsInteractor {
 
     //Forma mas Kottlin de implementación
     fun execute(success: SuccessClosure, error: ErrorClosure) {
-        var allOK = true
+        val allOK = true
 
         //Connect to the Repository
 

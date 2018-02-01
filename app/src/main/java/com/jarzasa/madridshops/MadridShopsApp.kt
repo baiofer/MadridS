@@ -2,9 +2,7 @@ package com.jarzasa.madridshops
 
 import android.support.multidex.MultiDexApplication
 import android.util.Log
-import com.jarzasa.madridshops.domain.interactors.ErrorCompletion
-import com.jarzasa.madridshops.domain.interactors.GetAllShopsInteractorFakeImpl
-import com.jarzasa.madridshops.domain.interactors.SuccessCompletion
+import com.jarzasa.madridshops.domain.interactors.getallshops.GetAllShopsInteractorFakeImpl
 import com.jarzasa.madridshops.domain.model.Shops
 
 class MadridShopsApp: MultiDexApplication() {
