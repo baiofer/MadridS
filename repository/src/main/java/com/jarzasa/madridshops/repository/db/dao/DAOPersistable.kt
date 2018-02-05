@@ -7,7 +7,7 @@ interface DAOReadOperations<T> {
      * returns the element from DB
      * if not exits, returns null
      */
-    fun query(id: Int): T
+    fun query(id: Long): T
 
     /*
      * returns all the elements from DB
@@ -19,7 +19,7 @@ interface DAOReadOperations<T> {
      * returns a Cursor from DB
      * if not exits list, returns null
      */
-    fun queryCursor(): Cursor
+    fun queryCursor(id: Long): Cursor
 }
 
 interface DAOWriteOperations<T> {

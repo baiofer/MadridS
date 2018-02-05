@@ -23,7 +23,7 @@ class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
 
     fun contentValues(shopEntity: ShopEntity): ContentValues {
         val content = ContentValues()
-        content.put(DBConstants.KEY_SHOP_ID, shopEntity.id)
+        content.put(DBConstants.KEY_SHOP_ID_JSON, shopEntity.id)
         content.put(DBConstants.KEY_SHOP_NAME, shopEntity.name)
         content.put(DBConstants.KEY_SHOP_IMAGE_URL, shopEntity.img)
         content.put(DBConstants.KEY_SHOP_LOGO_IMAGE_URL, shopEntity.logo_img)
@@ -59,38 +59,126 @@ class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
     }
 
     override fun delete(element: ShopEntity): Long {
-        return  delete(element.id)
+        if (element.databaseId < 1) {
+            return  0
+        }
+        return  delete(element.databaseId)
     }
 
     override fun delete(id: Long): Long {
-        return 1
+        return dbReadWriteConnection.delete(
+                DBConstants.TABLE_SHOP,
+                DBConstants.KEY_SHOP_DATABASE_ID + " = ? ",
+                arrayOf(id.toString())).toLong()
     }
 
     override fun deleteAll(): Boolean {
-
-        return true
+        return dbReadWriteConnection.delete(
+                DBConstants.TABLE_SHOP,
+                null,
+                null
+                ).toLong() > 0
     }
 
+    override fun update(id: Long, element: ShopEntity): Long {
+        val id = dbReadWriteConnection.update(
+                DBConstants.TABLE_SHOP,
+                contentValues(element),
+                DBConstants.KEY_SHOP_DATABASE_ID + " = ? ",
+                arrayOf(id.toString())
+        )
+        return id.toLong()
+    }
 
-    override fun query(id: Int): ShopEntity {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    fun Cursor.readString(column: String): String {
+        return this.getString(this.getColumnIndex(column))
+    }
+
+    fun Cursor.readLong(column: String): Long {
+        return this.getLong(this.getColumnIndex(column))
+    }
+
+    fun entityFromCursor(cursor: Cursor): ShopEntity? {
+        if (cursor.isAfterLast || cursor.isBeforeFirst) {
+            return null
+        }
+        return ShopEntity(
+                cursor.readLong(DBConstants.KEY_SHOP_DATABASE_ID),
+                cursor.readLong(DBConstants.KEY_SHOP_ID_JSON),
+                cursor.readString(DBConstants.KEY_SHOP_NAME),
+                cursor.readString(DBConstants.KEY_SHOP_IMAGE_URL),
+                cursor.readString(DBConstants.KEY_SHOP_LOGO_IMAGE_URL),
+                cursor.readString(DBConstants.KEY_SHOP_OPENING_HOURS_EN),
+                cursor.readString(DBConstants.KEY_SHOP_OPENING_HOURS_ES),
+                cursor.readString(DBConstants.KEY_SHOP_OPENING_HOURS_JP),
+                cursor.readString(DBConstants.KEY_SHOP_OPENING_HOURS_CN),
+                cursor.readString(DBConstants.KEY_SHOP_OPENING_HOURS_CL),
+                cursor.readString(DBConstants.KEY_SHOP_OPENING_HOURS_MX),
+                cursor.readString(DBConstants.KEY_SHOP_TELEPHONE),
+                cursor.readString(DBConstants.KEY_SHOP_EMAIL),
+                cursor.readString(DBConstants.KEY_SHOP_URL),
+                cursor.readString(DBConstants.KEY_SHOP_ADDRESS),
+                cursor.readString(DBConstants.KEY_SHOP_DESCRIPTION_EN),
+                cursor.readString(DBConstants.KEY_SHOP_DESCRIPTION_ES),
+                cursor.readString(DBConstants.KEY_SHOP_DESCRIPTION_JP),
+                cursor.readString(DBConstants.KEY_SHOP_DESCRIPTION_CN),
+                cursor.readString(DBConstants.KEY_SHOP_DESCRIPTION_CL),
+                cursor.readString(DBConstants.KEY_SHOP_DESCRIPTION_MX),
+                cursor.readLong(DBConstants.KEY_SHOP_LATITUDE),
+                cursor.readLong(DBConstants.KEY_SHOP_LONGITUDE),
+                cursor.readString(DBConstants.KEY_SHOP_SPECIAL_OFFER),
+                cursor.readString(DBConstants.KEY_SHOP_CATEGORIES),
+                cursor.readString(DBConstants.KEY_SHOP_KEYWORDS_EN),
+                cursor.readString(DBConstants.KEY_SHOP_KEYWORDS_ES),
+                cursor.readString(DBConstants.KEY_SHOP_KEYWORDS_JP),
+                cursor.readString(DBConstants.KEY_SHOP_KEYWORDS_CN),
+                cursor.readString(DBConstants.KEY_SHOP_KEYWORDS_CL),
+                cursor.readString(DBConstants.KEY_SHOP_KEYWORDS_MX),
+                cursor.readString(DBConstants.KEY_SHOP_BOOKING_OPERATION),
+                cursor.readString(DBConstants.KEY_SHOP_BOOKING_DATA)
+        )
+    }
+
+    override fun query(id: Long): ShopEntity {
+        val cursor = queryCursor(id)
+        cursor.moveToFirst()
+        val shop = entityFromCursor(cursor)!!
+        return shop
     }
 
     override fun query(): List<ShopEntity> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val queryResult = ArrayList<ShopEntity>()
+        val cursor =dbReadOnlyConnection.query(
+                        DBConstants.TABLE_SHOP,
+                        DBConstants.ALL_COLUMNS,
+                        null,
+                        null,
+                        "",
+                        "",
+                        DBConstants.KEY_SHOP_DATABASE_ID
+                    )
+        while (cursor.moveToNext()) {
+            val shop: ShopEntity = entityFromCursor(cursor)!!
+            queryResult.add(shop)
+        }
+        return queryResult
     }
 
-    override fun queryCursor(): Cursor {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun queryCursor(id: Long): Cursor {
+        return dbReadOnlyConnection.query(
+                DBConstants.TABLE_SHOP,
+                DBConstants.ALL_COLUMNS,
+                DBConstants.KEY_SHOP_DATABASE_ID + " = ? ",
+                arrayOf(id.toString()),
+                "",
+                "",
+                DBConstants.KEY_SHOP_DATABASE_ID
+        )
     }
 
 
 
-    override fun update(id: Long, element: ShopEntity): Long {
 
-
-        return 1
-    }
 
 
 

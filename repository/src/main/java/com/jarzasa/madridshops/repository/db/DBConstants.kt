@@ -4,8 +4,8 @@ object DBConstants {
     val TABLE_SHOP = "SHOP"
 
     // Table field constants
-    val KEY_SHOP_ID = "_id"
-    val KEY_SHOP_DATABASE_ID = "DATABASE_ID"
+    val KEY_SHOP_DATABASE_ID = "_id"
+    val KEY_SHOP_ID_JSON = "DATABASE_ID"
     val KEY_SHOP_NAME = "NAME"
     val KEY_SHOP_IMAGE_URL = "IMAGE_URL"
     val KEY_SHOP_LOGO_IMAGE_URL = "LOGO_IMAGE_URL"
@@ -43,8 +43,8 @@ object DBConstants {
     val KEY_SHOP_KEYWORDS_MX = "KEYWORDS_MX"
 
     val ALL_COLUMNS = arrayOf(
-            KEY_SHOP_ID,
             KEY_SHOP_DATABASE_ID,
+            KEY_SHOP_ID_JSON,
             KEY_SHOP_NAME,
             KEY_SHOP_IMAGE_URL,
             KEY_SHOP_LOGO_IMAGE_URL,
@@ -80,8 +80,8 @@ object DBConstants {
     val SQL_SCRIPT_CREATE_SHOP_TABLE = (
             "create table " + TABLE_SHOP
                     + "( "
-                    + KEY_SHOP_ID + " integer primary key autoincrement, "
-                    + KEY_SHOP_DATABASE_ID + " real, "
+                    + KEY_SHOP_DATABASE_ID + " integer primary key autoincrement, "
+                    + KEY_SHOP_ID_JSON + " real, "
                     + KEY_SHOP_NAME + " text not null, "
                     + KEY_SHOP_IMAGE_URL + " text, "
                     + KEY_SHOP_LOGO_IMAGE_URL + " text, "
@@ -112,7 +112,7 @@ object DBConstants {
                     + KEY_SHOP_KEYWORDS_JP + " text, "
                     + KEY_SHOP_KEYWORDS_CN + " text, "
                     + KEY_SHOP_KEYWORDS_CL + " text, "
-                    + KEY_SHOP_KEYWORDS_MX + " text, "
+                    + KEY_SHOP_KEYWORDS_MX + " text "
                     + ");")
 
     val DROP_DATABASE_SCRIPTS = ""
