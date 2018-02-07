@@ -19,7 +19,7 @@ class DBHelper(context: Context?, name: String?, factory: SQLiteDatabase.CursorF
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        DBConstants.CREATE_DATABASE_SCRIPTS.forEach {
+        DBConstantsTotal.CREATE_DATABASE_SCRIPTS.forEach {
             db?.execSQL(it)
         }
     }

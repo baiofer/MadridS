@@ -14,35 +14,11 @@ import org.junit.Assert.*
 
 @RunWith(AndroidJUnit4::class)
 class ShopDAOTests {
-    @Test
-    @Throws(Exception::class)
-    fun given_valid_shopentity_it_gets_inserted_correctly() {
+
+    fun initializeDB(): ShopDAO {
         val appContext = InstrumentationRegistry.getTargetContext()
         val dbHelper = build(appContext, "mydb.sqlite", 1)
 
-        val shop = ShopEntity(1, 1, "My shop", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", "My description", "", "",
-                "", "", "", 1, 1, "",
-                "", "", "", "", "", "",
-                "", "", "")
-        val shopEntityDAO = ShopDAO(dbHelper)
-
-        //DeleteAll
-        shopEntityDAO.deleteAll()
-
-        //Insert element
-        val id = shopEntityDAO.insert(shop)
-
-        assertTrue(id > 0)
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun given_valid_db_whith_registers_deleteall_functions_properly() {
-        val appContext = InstrumentationRegistry.getTargetContext()
-        val dbHelper = build(appContext, "mydb.sqlite", 1)
-        //Insert 2 shops
         val shop1 = ShopEntity(1, 1, "My shop1", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "My description1", "", "",
@@ -56,8 +32,44 @@ class ShopDAOTests {
                 "", "", "", "", "", "",
                 "", "", "")
         val shopEntityDAO = ShopDAO(dbHelper)
+
+        //DeleteAll
+        shopEntityDAO.deleteAll()
+
+        //Insert 2 shops
         shopEntityDAO.insert(shop1)
         shopEntityDAO.insert(shop2)
+
+        return shopEntityDAO
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun given_valid_shopentity_it_gets_inserted_correctly() {
+
+        val shopEntityDAO: ShopDAO = initializeDB()
+
+        //DeleteAll
+        shopEntityDAO.deleteAll()
+
+        //Insert element
+        val shop = ShopEntity(1, 1, "My shop1", "", "", "",
+                "", "", "", "", "",
+                "", "", "", "", "My description1", "", "",
+                "", "", "", 1, 1, "",
+                "", "", "", "", "", "",
+                "", "", "")
+
+        val id = shopEntityDAO.insert(shop)
+
+        assertTrue(id > 0)
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun given_valid_db_whith_registers_deleteall_functions_properly() {
+
+        val shopEntityDAO: ShopDAO = initializeDB()
 
         //Delete all shops
         shopEntityDAO.deleteAll()
@@ -71,29 +83,8 @@ class ShopDAOTests {
     @Test
     @Throws(Exception::class)
     fun given_valid_db_whith_registers_query_functions_properly() {
-        val appContext = InstrumentationRegistry.getTargetContext()
-        val dbHelper = build(appContext, "mydb.sqlite", 1)
-        //Insert 2 shops
-        val shop1 = ShopEntity(1, 1, "My shop1", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", "My description1", "", "",
-                "", "", "", 1, 1, "",
-                "", "", "", "", "", "",
-                "", "", "")
-        val shop2 = ShopEntity(1, 1, "My shop2", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", "My description2", "", "",
-                "", "", "", 1, 1, "",
-                "", "", "", "", "", "",
-                "", "", "")
-        val shopEntityDAO = ShopDAO(dbHelper)
 
-        //Delete all shops
-        shopEntityDAO.deleteAll()
-
-        //Insert 2 shops
-        shopEntityDAO.insert(shop1)
-        shopEntityDAO.insert(shop2)
+        val shopEntityDAO: ShopDAO = initializeDB()
 
         //Query all shops
         val shops = shopEntityDAO.query()
@@ -105,29 +96,8 @@ class ShopDAOTests {
     @Test
     @Throws(Exception::class)
     fun given_valid_db_whith_registers_queryelement_functions_properly() {
-        val appContext = InstrumentationRegistry.getTargetContext()
-        val dbHelper = build(appContext, "mydb.sqlite", 1)
-        //Create 2 shops
-        val shop1 = ShopEntity(1, 1, "My shop1", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", "My description1", "", "",
-                "", "", "", 1, 1, "",
-                "", "", "", "", "", "",
-                "", "", "")
-        val shop2 = ShopEntity(1, 1, "My shop2", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", "My description2", "", "",
-                "", "", "", 1, 1, "",
-                "", "", "", "", "", "",
-                "", "", "")
-        val shopEntityDAO = ShopDAO(dbHelper)
 
-        //Delete all shops
-        shopEntityDAO.deleteAll()
-
-        //Insert 2 shops
-        shopEntityDAO.insert(shop1)
-        shopEntityDAO.insert(shop2)
+        val shopEntityDAO: ShopDAO = initializeDB()
 
         //Gets databaseId from first register
         val shops = shopEntityDAO.query()
@@ -141,29 +111,8 @@ class ShopDAOTests {
     @Test
     @Throws(Exception::class)
     fun given_valid_db_whith_registers_deleteelement_functions_properly() {
-        val appContext = InstrumentationRegistry.getTargetContext()
-        val dbHelper = build(appContext, "mydb.sqlite", 1)
-        //Create 2 shops
-        val shop1 = ShopEntity(1, 1, "My shop1", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", "My description1", "", "",
-                "", "", "", 1, 1, "",
-                "", "", "", "", "", "",
-                "", "", "")
-        val shop2 = ShopEntity(1, 1, "My shop2", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", "My description2", "", "",
-                "", "", "", 1, 1, "",
-                "", "", "", "", "", "",
-                "", "", "")
-        val shopEntityDAO = ShopDAO(dbHelper)
 
-        //Delete all shops
-        shopEntityDAO.deleteAll()
-
-        //Insert 2 shops
-        shopEntityDAO.insert(shop1)
-        shopEntityDAO.insert(shop2)
+        val shopEntityDAO: ShopDAO = initializeDB()
 
         //Gets databaseId from first register
         val shops = shopEntityDAO.query()
@@ -181,29 +130,8 @@ class ShopDAOTests {
     @Test
     @Throws(Exception::class)
     fun given_valid_db_whith_registers_updateelement_functions_properly() {
-        val appContext = InstrumentationRegistry.getTargetContext()
-        val dbHelper = build(appContext, "mydb.sqlite", 1)
-        //Create 2 shops
-        val shop1 = ShopEntity(1, 1, "My shop1", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", "My description1", "", "",
-                "", "", "", 1, 1, "",
-                "", "", "", "", "", "",
-                "", "", "")
-        val shop2 = ShopEntity(1, 1, "My shop2", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", "My description2", "", "",
-                "", "", "", 1, 1, "",
-                "", "", "", "", "", "",
-                "", "", "")
-        val shopEntityDAO = ShopDAO(dbHelper)
 
-        //Delete all shops
-        shopEntityDAO.deleteAll()
-
-        //Insert 2 shops
-        shopEntityDAO.insert(shop1)
-        shopEntityDAO.insert(shop2)
+        val shopEntityDAO: ShopDAO = initializeDB()
 
         //Gets databaseId from first register
         val shops = shopEntityDAO.query()

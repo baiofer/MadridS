@@ -1,6 +1,6 @@
 package com.jarzasa.madridshops.repository.db
 
-object DBConstants {
+object DBConstantsShops {
     val TABLE_SHOP = "SHOP"
 
     // Table field constants
@@ -115,7 +115,8 @@ object DBConstants {
                     + KEY_SHOP_KEYWORDS_MX + " text "
                     + ");")
 
-    val DROP_DATABASE_SCRIPTS = ""
+    //val DROP_DATABASE_SCRIPTS = ""
 
-    val CREATE_DATABASE_SCRIPTS = arrayOf(SQL_SCRIPT_CREATE_SHOP_TABLE)
+    //val CREATE_DATABASE_SCRIPTS = arrayOf(SQL_SCRIPT_CREATE_SHOP_TABLE,
+    //        DBConstantsActivities.SQL_SCRIPT_CREATE_ACTIVITY_TABLE)
 }

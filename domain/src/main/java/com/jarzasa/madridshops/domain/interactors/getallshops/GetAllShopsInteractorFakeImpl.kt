@@ -1,9 +1,9 @@
 package com.jarzasa.madridshops.domain.interactors.getallshops
 
 import com.jarzasa.madridshops.domain.interactors.ErrorClosure
-import com.jarzasa.madridshops.domain.interactors.ErrorCompletion
+import com.jarzasa.madridshops.repository.ErrorCompletion
 import com.jarzasa.madridshops.domain.interactors.SuccessClosure
-import com.jarzasa.madridshops.domain.interactors.SuccessCompletion
+import com.jarzasa.madridshops.repository.SuccessCompletion
 import com.jarzasa.madridshops.domain.model.Shop
 import com.jarzasa.madridshops.domain.model.Shops
 

@@ -1,7 +1,7 @@
 package com.jarzasa.madridshops.domain.interactors.getallshops
 
-import com.jarzasa.madridshops.domain.interactors.ErrorCompletion
-import com.jarzasa.madridshops.domain.interactors.SuccessCompletion
+import com.jarzasa.madridshops.repository.ErrorCompletion
+import com.jarzasa.madridshops.repository.SuccessCompletion
 import com.jarzasa.madridshops.domain.model.Shops
 
 interface GetAllShopsInteractor {

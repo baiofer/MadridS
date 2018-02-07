@@ -1,4 +1,4 @@
-package com.jarzasa.madridshops.domain.interactors
+package com.jarzasa.madridshops.repository
 
 interface SuccessCompletion<T> {
     fun successCompletion(e: T)
