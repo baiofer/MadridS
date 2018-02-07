@@ -79,13 +79,13 @@ class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
     }
 
     override fun update(id: Long, element: ShopEntity): Long {
-        val id = dbReadWriteConnection.update(
+        val id1 = dbReadWriteConnection.update(
                 DBConstantsShops.TABLE_SHOP,
                 contentValues(element),
                 DBConstantsShops.KEY_SHOP_DATABASE_ID + " = ? ",
                 arrayOf(id.toString())
         )
-        return id.toLong()
+        return id1.toLong()
     }
 
     fun Cursor.readString(column: String): String {

@@ -80,13 +80,13 @@ class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
     }
 
     override fun update(id: Long, element: ActivityEntity): Long {
-        val id = dbReadWriteConnection.update(
+        val id1 = dbReadWriteConnection.update(
                 DBConstantsActivities.TABLE_ACTIVITY,
                 contentValues(element),
                 DBConstantsActivities.KEY_ACTIVITY_DATABASE_ID + " = ? ",
                 arrayOf(id.toString())
         )
-        return id.toLong()
+        return id1.toLong()
     }
 
     fun Cursor.readString(column: String): String {
