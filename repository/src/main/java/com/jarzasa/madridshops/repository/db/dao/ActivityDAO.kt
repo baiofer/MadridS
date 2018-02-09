@@ -8,7 +8,7 @@ import com.jarzasa.madridshops.repository.db.DBConstantsShops
 import com.jarzasa.madridshops.repository.db.DBHelper
 import com.jarzasa.madridshops.repository.model.ActivityEntity
 
-class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
+internal class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
 
     private val dbReadOnlyConnection: SQLiteDatabase = dbHelper.readableDatabase
     private val dbReadWriteConnection: SQLiteDatabase = dbHelper.writableDatabase
@@ -45,7 +45,7 @@ class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
         content.put(DBConstantsActivities.KEY_ACTIVITY_LATITUDE, activityEntity.gps_lat)
         content.put(DBConstantsActivities.KEY_ACTIVITY_LONGITUDE, activityEntity.gps_lon)
         content.put(DBConstantsActivities.KEY_ACTIVITY_SPECIAL_OFFER, activityEntity.special_offer)
-        content.put(DBConstantsActivities.KEY_ACTIVITY_CATEGORIES, activityEntity.categories)
+        //content.put(DBConstantsActivities.KEY_ACTIVITY_CATEGORIES, activityEntity.categories)
         content.put(DBConstantsActivities.KEY_ACTIVITY_KEYWORDS_EN, activityEntity.keywords_en)
         content.put(DBConstantsActivities.KEY_ACTIVITY_KEYWORDS_ES, activityEntity.keywords_es)
         content.put(DBConstantsActivities.KEY_ACTIVITY_KEYWORDS_JP, activityEntity.keywords_jp)
@@ -123,10 +123,10 @@ class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
                 cursor.readString(DBConstantsActivities.KEY_ACTIVITY_DESCRIPTION_CN),
                 cursor.readString(DBConstantsActivities.KEY_ACTIVITY_DESCRIPTION_CL),
                 cursor.readString(DBConstantsActivities.KEY_ACTIVITY_DESCRIPTION_MX),
-                cursor.readLong(DBConstantsActivities.KEY_ACTIVITY_LATITUDE),
-                cursor.readLong(DBConstantsActivities.KEY_ACTIVITY_LONGITUDE),
+                cursor.readString(DBConstantsActivities.KEY_ACTIVITY_LATITUDE),
+                cursor.readString(DBConstantsActivities.KEY_ACTIVITY_LONGITUDE),
                 cursor.readString(DBConstantsActivities.KEY_ACTIVITY_SPECIAL_OFFER),
-                cursor.readString(DBConstantsActivities.KEY_ACTIVITY_CATEGORIES),
+                //cursor.readString(DBConstantsActivities.KEY_ACTIVITY_CATEGORIES),
                 cursor.readString(DBConstantsActivities.KEY_ACTIVITY_KEYWORDS_EN),
                 cursor.readString(DBConstantsActivities.KEY_ACTIVITY_KEYWORDS_ES),
                 cursor.readString(DBConstantsActivities.KEY_ACTIVITY_KEYWORDS_JP),

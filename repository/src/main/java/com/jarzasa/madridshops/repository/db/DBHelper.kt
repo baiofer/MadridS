@@ -4,11 +4,11 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-fun build(context: Context, name: String, version: Int): DBHelper {
+internal fun build(context: Context, name: String, version: Int): DBHelper {
     return com.jarzasa.madridshops.repository.db.DBHelper(context, name, null, version)
 }
 
-class DBHelper(context: Context?, name: String?, factory: SQLiteDatabase.CursorFactory?, version: Int)
+internal class DBHelper(context: Context?, name: String?, factory: SQLiteDatabase.CursorFactory?, version: Int)
       : SQLiteOpenHelper(context, name, factory, version) {
 
     override fun onOpen(db: SQLiteDatabase?) {

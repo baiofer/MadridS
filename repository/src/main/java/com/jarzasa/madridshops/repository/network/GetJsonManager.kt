@@ -1,9 +1,9 @@
 package com.jarzasa.madridshops.repository.network
 
-import com.jarzasa.madridshops.repository.ErrorCompletion
-import com.jarzasa.madridshops.repository.SuccessCompletion
+import com.jarzasa.madridshops.utils.ErrorCompletion
+import com.jarzasa.madridshops.utils.SuccessCompletion
 
-interface GetJsonManager {
+internal interface GetJsonManager {
     fun execute(url: String,
                 success: SuccessCompletion<String>,
                 error: ErrorCompletion)

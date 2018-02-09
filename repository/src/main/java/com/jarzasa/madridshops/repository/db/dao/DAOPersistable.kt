@@ -2,7 +2,7 @@ package com.jarzasa.madridshops.repository.db.dao
 
 import android.database.Cursor
 
-interface DAOReadOperations<T> {
+internal interface DAOReadOperations<T> {
     /*
      * returns the element from DB
      * if not exits, returns null
@@ -22,7 +22,7 @@ interface DAOReadOperations<T> {
     fun queryCursor(id: Long): Cursor
 }
 
-interface DAOWriteOperations<T> {
+internal interface DAOWriteOperations<T> {
     /*
      *  insert de element in DB. Returns 1
      *  if element id invalid (< 1) or name not exits, not insert the element and returns 0
@@ -57,4 +57,4 @@ interface DAOWriteOperations<T> {
     fun deleteAll(): Boolean
 }
 
-interface DAOPersistable<T>: DAOWriteOperations<T>, DAOReadOperations<T>
+internal interface DAOPersistable<T>: DAOWriteOperations<T>, DAOReadOperations<T>

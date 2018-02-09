@@ -1,6 +1,6 @@
 package com.jarzasa.madridshops.repository.db
 
-object DBConstantsShops {
+internal object DBConstantsShops {
     val TABLE_SHOP = "SHOP"
 
     // Table field constants

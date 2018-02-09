@@ -7,7 +7,7 @@ import com.jarzasa.madridshops.repository.db.DBConstantsShops
 import com.jarzasa.madridshops.repository.db.DBHelper
 import com.jarzasa.madridshops.repository.model.ShopEntity
 
-class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
+internal class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
 
     private val dbReadOnlyConnection: SQLiteDatabase = dbHelper.readableDatabase
     private val dbReadWriteConnection: SQLiteDatabase = dbHelper.writableDatabase
@@ -44,7 +44,7 @@ class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
         content.put(DBConstantsShops.KEY_SHOP_LATITUDE, shopEntity.gps_lat)
         content.put(DBConstantsShops.KEY_SHOP_LONGITUDE, shopEntity.gps_lon)
         content.put(DBConstantsShops.KEY_SHOP_SPECIAL_OFFER, shopEntity.special_offer)
-        content.put(DBConstantsShops.KEY_SHOP_CATEGORIES, shopEntity.categories)
+        //content.put(DBConstantsShops.KEY_SHOP_CATEGORIES, shopEntity.categories)
         content.put(DBConstantsShops.KEY_SHOP_KEYWORDS_EN, shopEntity.keywords_en)
         content.put(DBConstantsShops.KEY_SHOP_KEYWORDS_ES, shopEntity.keywords_es)
         content.put(DBConstantsShops.KEY_SHOP_KEYWORDS_JP, shopEntity.keywords_jp)
@@ -96,6 +96,10 @@ class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
         return this.getLong(this.getColumnIndex(column))
     }
 
+    fun Cursor.readFloat(column: String): Float {
+        return this.getFloat(this.getColumnIndex(column))
+    }
+
     fun entityFromCursor(cursor: Cursor): ShopEntity? {
         if (cursor.isAfterLast || cursor.isBeforeFirst) {
             return null
@@ -122,10 +126,10 @@ class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
                 cursor.readString(DBConstantsShops.KEY_SHOP_DESCRIPTION_CN),
                 cursor.readString(DBConstantsShops.KEY_SHOP_DESCRIPTION_CL),
                 cursor.readString(DBConstantsShops.KEY_SHOP_DESCRIPTION_MX),
-                cursor.readLong(DBConstantsShops.KEY_SHOP_LATITUDE),
-                cursor.readLong(DBConstantsShops.KEY_SHOP_LONGITUDE),
+                cursor.readString(DBConstantsShops.KEY_SHOP_LATITUDE),
+                cursor.readString(DBConstantsShops.KEY_SHOP_LONGITUDE),
                 cursor.readString(DBConstantsShops.KEY_SHOP_SPECIAL_OFFER),
-                cursor.readString(DBConstantsShops.KEY_SHOP_CATEGORIES),
+                //cursor.readString(DBConstantsShops.KEY_SHOP_CATEGORIES),
                 cursor.readString(DBConstantsShops.KEY_SHOP_KEYWORDS_EN),
                 cursor.readString(DBConstantsShops.KEY_SHOP_KEYWORDS_ES),
                 cursor.readString(DBConstantsShops.KEY_SHOP_KEYWORDS_JP),

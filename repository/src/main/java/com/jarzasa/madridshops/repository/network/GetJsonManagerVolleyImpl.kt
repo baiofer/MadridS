@@ -6,11 +6,11 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.jarzasa.madridshops.repository.ErrorCompletion
-import com.jarzasa.madridshops.repository.SuccessCompletion
+import com.jarzasa.madridshops.utils.ErrorCompletion
+import com.jarzasa.madridshops.utils.SuccessCompletion
 import java.lang.ref.WeakReference
 
-class GetJsonManagerVolleyImpl(context: Context): GetJsonManager {
+internal class GetJsonManagerVolleyImpl(context: Context): GetJsonManager {
     // Activity --> Interactor (strong) --> Repository (strong) --> Volley (strong) -/-> Activity (weak)
 
     var weakContext: WeakReference<Context> = WeakReference(context)
