@@ -1,5 +1,9 @@
 package com.jarzasa.madridshops.repository
 
-interface Repository {
+import com.jarzasa.madridshops.utils.CodeClosure
+import com.jarzasa.madridshops.utils.ErrorClosure
 
+interface Repository {
+    fun deleteAllShops(success: CodeClosure, error: ErrorClosure)
+    fun deleteAllActivities(success: CodeClosure, error: ErrorClosure)
 }

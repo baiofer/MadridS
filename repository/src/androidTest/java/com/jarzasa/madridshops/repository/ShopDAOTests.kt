@@ -15,22 +15,22 @@ import org.junit.Assert.*
 @RunWith(AndroidJUnit4::class)
 class ShopDAOTests {
 
-    fun initializeDB(): ShopDAO {
+    private fun initializeDB(): ShopDAO {
         val appContext = InstrumentationRegistry.getTargetContext()
         val dbHelper = build(appContext, "mydb.sqlite", 1)
 
         val shop1 = ShopEntity(1, 1, "My shop1", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "My description1", "", "",
-                "", "", "", 1, 1, "",
+                "", "", "", "1", "1", "",
                 "", "", "", "", "", "",
-                "", "", "")
+                "", "")
         val shop2 = ShopEntity(1, 1, "My shop2", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "My description2", "", "",
-                "", "", "", 1, 1, "",
+                "", "", "", "1", "1", "",
                 "", "", "", "", "", "",
-                "", "", "")
+                "", "")
         val shopEntityDAO = ShopDAO(dbHelper)
 
         //DeleteAll
@@ -56,9 +56,9 @@ class ShopDAOTests {
         val shop = ShopEntity(1, 1, "My shop1", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "My description1", "", "",
-                "", "", "", 1, 1, "",
+                "", "", "", "1", "1", "",
                 "", "", "", "", "", "",
-                "", "", "")
+                "", "")
 
         val id = shopEntityDAO.insert(shop)
 
@@ -141,9 +141,9 @@ class ShopDAOTests {
         val updateShop = ShopEntity(id, 1, "My shop2 updated", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "My description2", "", "",
-                "", "", "", 1, 1, "",
+                "", "", "", "1", "1", "",
                 "", "", "", "", "", "",
-                "", "", "")
+                "", "")
 
         //Update shop
         shopEntityDAO.update(id, updateShop)

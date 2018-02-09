@@ -12,22 +12,22 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ActivityDAOTests {
 
-    fun initializeDB(): ActivityDAO {
+    private fun initializeDB(): ActivityDAO {
         val appContext = InstrumentationRegistry.getTargetContext()
         val dbHelper = build(appContext, "mydb.sqlite", 1)
 
         val activity1 = ActivityEntity(1, 1, "My activity1", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "My description1", "", "",
-                "", "", "", 1, 1, "",
+                "", "", "", "1", "1", "",
                 "", "", "", "", "", "",
-                "", "", "")
+                "", "")
         val activity2 = ActivityEntity(1, 1, "My activity2", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "My description2", "", "",
-                "", "", "", 1, 1, "",
+                "", "", "", "1", "1", "",
                 "", "", "", "", "", "",
-                "", "", "")
+                "", "")
         val activityEntityDAO = ActivityDAO(dbHelper)
 
         //DeleteAll
@@ -53,9 +53,9 @@ class ActivityDAOTests {
         val activity = ActivityEntity(1, 1, "My activity1", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "My description1", "", "",
-                "", "", "", 1, 1, "",
+                "", "", "", "1", "1", "",
                 "", "", "", "", "", "",
-                "", "", "")
+                "", "")
 
         val id = activityEntityDAO.insert(activity)
 
@@ -138,9 +138,9 @@ class ActivityDAOTests {
         val updateActivity = ActivityEntity(id, 1, "My activity2 updated", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "My description2", "", "",
-                "", "", "", 1, 1, "",
+                "", "", "", "1", "1", "",
                 "", "", "", "", "", "",
-                "", "", "")
+                "", "")
 
         //Update shop
         activityEntityDAO.update(id, updateActivity)

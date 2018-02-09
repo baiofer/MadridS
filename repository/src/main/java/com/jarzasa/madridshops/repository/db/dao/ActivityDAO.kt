@@ -76,7 +76,7 @@ internal class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
                 DBConstantsActivities.TABLE_ACTIVITY,
                 null,
                 null
-        ).toLong() > 0
+        ).toLong() >= 0
     }
 
     override fun update(id: Long, element: ActivityEntity): Long {

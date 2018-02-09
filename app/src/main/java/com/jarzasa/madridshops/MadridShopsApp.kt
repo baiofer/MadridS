@@ -2,6 +2,8 @@ package com.jarzasa.madridshops
 
 import android.support.multidex.MultiDexApplication
 import android.util.Log
+import com.jarzasa.madridshops.domain.interactors.deleteallactivities.DeleteAllActivitiesInteractorImpl
+import com.jarzasa.madridshops.domain.interactors.deleteallshops.DeleteAllShopsInteractorImpl
 import com.jarzasa.madridshops.domain.interactors.getallshops.GetAllShopsInteractorFakeImpl
 import com.jarzasa.madridshops.domain.model.Shops
 
@@ -36,6 +38,18 @@ class MadridShopsApp: MultiDexApplication() {
                     Log.d("Shops", "Error: " + error)
                 }
         )
+
+        DeleteAllShopsInteractorImpl(this).execute(success = {
+            Log.d("SUCCESS", "ALL SHOPS DELETED")
+        }, error = {
+            Log.d("ERROR", "ERROR DELETING SHOPS")
+        })
+
+        DeleteAllActivitiesInteractorImpl(this).execute(success = {
+            Log.d("SUCCESS", "ALL ACTIVITIES DELETED")
+        }, error = {
+            Log.d("ERROR", "ERROR DELETING ACTIVITIES")
+        })
     }
 
     override fun onLowMemory() {

@@ -75,7 +75,7 @@ internal class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
                 DBConstantsShops.TABLE_SHOP,
                 null,
                 null
-                ).toLong() > 0
+                ).toLong() >= 0
     }
 
     override fun update(id: Long, element: ShopEntity): Long {

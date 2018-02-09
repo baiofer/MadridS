@@ -33,6 +33,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //enabling multidex support to avoid 64K method limit
+    //see: https://developer.android.com/studio/build/multidex.html
+    implementation 'com.android.support:multidex:1.0.2'
 }
 repositories {
     mavenCentral()
