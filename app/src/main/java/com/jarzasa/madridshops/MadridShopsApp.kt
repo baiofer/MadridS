@@ -39,6 +39,9 @@ class MadridShopsApp: MultiDexApplication() {
                 }
         )
 
+        val server = BuildConfig.MS_SERVER_URL
+        Log.d("APP", server)
+
         DeleteAllShopsInteractorImpl(this).execute(success = {
             Log.d("SUCCESS", "ALL SHOPS DELETED")
         }, error = {

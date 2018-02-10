@@ -17,7 +17,7 @@ class ShopDAOTests {
 
     private fun initializeDB(): ShopDAO {
         val appContext = InstrumentationRegistry.getTargetContext()
-        val dbHelper = build(appContext, "mydb.sqlite", 1)
+        val dbHelper = build(appContext, BuildConfig.DB_TESTS, 1)
 
         val shop1 = ShopEntity(1, 1, "My shop1", "", "", "",
                 "", "", "", "", "",

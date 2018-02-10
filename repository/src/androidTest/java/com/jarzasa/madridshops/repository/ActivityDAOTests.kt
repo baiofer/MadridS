@@ -14,7 +14,7 @@ class ActivityDAOTests {
 
     private fun initializeDB(): ActivityDAO {
         val appContext = InstrumentationRegistry.getTargetContext()
-        val dbHelper = build(appContext, "mydb.sqlite", 1)
+        val dbHelper = build(appContext, BuildConfig.DB_TESTS, 1)
 
         val activity1 = ActivityEntity(1, 1, "My activity1", "", "", "",
                 "", "", "", "", "",

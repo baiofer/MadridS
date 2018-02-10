@@ -6,6 +6,7 @@ import com.jarzasa.madridshops.repository.db.build
 import com.jarzasa.madridshops.repository.db.dao.ActivityDAO
 import com.jarzasa.madridshops.repository.db.dao.ShopDAO
 import com.jarzasa.madridshops.repository.model.ShopEntity
+import com.jarzasa.madridshops.utils.BuildConfig
 import com.jarzasa.madridshops.utils.CodeClosure
 import com.jarzasa.madridshops.utils.DispatchOnMainThread
 import com.jarzasa.madridshops.utils.ErrorClosure
@@ -36,7 +37,7 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
     }
 
     private fun cacheShopsDBHelper(): DBHelper {
-        return build(weakContext.get()!!, "Madridshops_Shops.sqlite", 1)
+        return build(weakContext.get()!!, BuildConfig.DB_SHOPS_NAME, 1)
     }
 
     fun deleteAllActivities(success: CodeClosure, error: ErrorClosure) {
@@ -50,6 +51,6 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
     }
 
     private fun cacheActivitiesDBHelper(): DBHelper {
-        return build(weakContext.get()!!, "Madridshops_Activities.sqlite", 1)
+        return build(weakContext.get()!!, BuildConfig.DB_ACTIVITIES_NAME, 1)
     }
 }
