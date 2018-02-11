@@ -21,6 +21,8 @@ android {
             buildConfigField "String", "DB_SHOPS_NAME", "\"Madridshops_Shops.sqlite\""
             buildConfigField "String", "DB_ACTIVITIES_NAME", "\"Madridshops_Activities.sqlite\""
             buildConfigField "String", "DB_TESTS", "\"Mydb.sqlite\""
+            buildConfigField "String", "URL_SHOPS", "\"http://madrid-shops.com/json_new/getShops.php\""
+            buildConfigField "String", "URL_ACTIVITIES", "\"http://madrid-shops.com/json_new/getActivities.php\""
         }
         release {
             minifyEnabled false
@@ -28,6 +30,8 @@ android {
             buildConfigField "String", "DB_SHOPS_NAME", "\"Madridshops_Shops.sqlite\""
             buildConfigField "String", "DB_ACTIVITIES_NAME", "\"Madridshops_Activities.sqlite\""
             buildConfigField "String", "DB_TESTS", "\"Mydb.sqlite\""
+            buildConfigField "String", "URL_SHOPS", "\"http://madrid-shops.com/json_new/getShops.php\""
+            buildConfigField "String", "URL_ACTIVITIES", "\"http://madrid-shops.com/json_new/getActivities.php\""
         }
     }
 

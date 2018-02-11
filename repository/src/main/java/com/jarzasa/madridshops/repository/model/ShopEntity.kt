@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 //Put this instruction if not parse all items
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal data class ShopEntity(
+data class ShopEntity(
         val databaseId: Long,
         val id: Long,
         val name: String,

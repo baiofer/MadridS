@@ -3,7 +3,16 @@ package com.jarzasa.madridshops.domain.model
 /**
  * Shop: Represent one shop
  */
-data class Shop( val id: Int, val name: String, val address: String)
+data class Shop(
+        val id: Int,
+        val name: String,
+        val description: String,
+        val latitude: Float,
+        val longitude: Float,
+        val image: String,
+        val logo: String,
+        val openingHours: String,
+        val address: String)
 
 /**
  * Shops: Represent a list of Shop
@@ -26,6 +35,4 @@ class Shops( val shops: MutableList<Shop>): Aggregate<Shop> {
     override fun delete(element: Shop) {
         shops.remove(element)
     }
-
-
 }
