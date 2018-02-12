@@ -16,6 +16,7 @@ internal class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
         val id = dbReadWriteConnection.insert(DBConstantsShops.TABLE_SHOP,
                                     null,
                                      contentValues(element))
+        closeDB()
         return id
     }
 
@@ -64,18 +65,22 @@ internal class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
     }
 
     override fun delete(id: Long): Long {
-        return dbReadWriteConnection.delete(
+        val del = dbReadWriteConnection.delete(
                 DBConstantsShops.TABLE_SHOP,
                 DBConstantsShops.KEY_SHOP_DATABASE_ID + " = ? ",
                 arrayOf(id.toString())).toLong()
+        closeDB()
+        return del
     }
 
     override fun deleteAll(): Boolean {
-        return dbReadWriteConnection.delete(
+        val del = dbReadWriteConnection.delete(
                 DBConstantsShops.TABLE_SHOP,
                 null,
                 null
                 ).toLong() >= 0
+        closeDB()
+        return del
     }
 
     override fun update(id: Long, element: ShopEntity): Long {
@@ -85,6 +90,7 @@ internal class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
                 DBConstantsShops.KEY_SHOP_DATABASE_ID + " = ? ",
                 arrayOf(id.toString())
         )
+        closeDB()
         return id1.toLong()
     }
 
@@ -163,11 +169,12 @@ internal class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
             val shop: ShopEntity = entityFromCursor(cursor)!!
             queryResult.add(shop)
         }
+        closeDB()
         return queryResult
     }
 
     override fun queryCursor(id: Long): Cursor {
-        return dbReadOnlyConnection.query(
+        val del = dbReadOnlyConnection.query(
                 DBConstantsShops.TABLE_SHOP,
                 DBConstantsShops.ALL_COLUMNS,
                 DBConstantsShops.KEY_SHOP_DATABASE_ID + " = ? ",
@@ -176,5 +183,12 @@ internal class ShopDAO(dbHelper: DBHelper): DAOPersistable<ShopEntity> {
                 "",
                 DBConstantsShops.KEY_SHOP_DATABASE_ID
         )
+        closeDB()
+        return del
+    }
+
+    fun closeDB() {
+        dbReadOnlyConnection.close()
+        dbReadWriteConnection.close()
     }
 }

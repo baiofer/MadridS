@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.jarzasa.madridshops.R
+import com.jarzasa.madridshops.domain.model.Shops
 
 
 /**
@@ -15,6 +16,11 @@ import com.jarzasa.madridshops.R
  */
 class ListFragment : Fragment() {
 
+    private var shops: Shops? = null
+
+    fun setShops(shops: Shops) {
+        this.shops = shops
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

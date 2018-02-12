@@ -17,6 +17,7 @@ internal class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
         val id = dbReadWriteConnection.insert(DBConstantsActivities.TABLE_ACTIVITY,
                 null,
                 contentValues(element))
+        closeDB()
         return id
     }
 
@@ -65,18 +66,22 @@ internal class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
     }
 
     override fun delete(id: Long): Long {
-        return dbReadWriteConnection.delete(
+        val del = dbReadWriteConnection.delete(
                 DBConstantsActivities.TABLE_ACTIVITY,
                 DBConstantsActivities.KEY_ACTIVITY_DATABASE_ID + " = ? ",
                 arrayOf(id.toString())).toLong()
+        closeDB()
+        return del
     }
 
     override fun deleteAll(): Boolean {
-        return dbReadWriteConnection.delete(
+        val del =dbReadWriteConnection.delete(
                 DBConstantsActivities.TABLE_ACTIVITY,
                 null,
                 null
         ).toLong() >= 0
+        closeDB()
+        return del
     }
 
     override fun update(id: Long, element: ActivityEntity): Long {
@@ -86,6 +91,7 @@ internal class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
                 DBConstantsActivities.KEY_ACTIVITY_DATABASE_ID + " = ? ",
                 arrayOf(id.toString())
         )
+        closeDB()
         return id1.toLong()
     }
 
@@ -160,11 +166,12 @@ internal class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
             val activity: ActivityEntity = entityFromCursor(cursor)!!
             queryResult.add(activity)
         }
+        closeDB()
         return queryResult
     }
 
     override fun queryCursor(id: Long): Cursor {
-        return dbReadOnlyConnection.query(
+        val del = dbReadOnlyConnection.query(
                 DBConstantsActivities.TABLE_ACTIVITY,
                 DBConstantsActivities.ALL_COLUMNS,
                 DBConstantsShops.KEY_SHOP_DATABASE_ID + " = ? ",
@@ -173,5 +180,12 @@ internal class ActivityDAO(dbHelper: DBHelper): DAOPersistable<ActivityEntity> {
                 "",
                 DBConstantsActivities.KEY_ACTIVITY_DATABASE_ID
         )
+        closeDB()
+        return del
+    }
+
+    fun closeDB() {
+        dbReadOnlyConnection.close()
+        dbReadWriteConnection.close()
     }
 }

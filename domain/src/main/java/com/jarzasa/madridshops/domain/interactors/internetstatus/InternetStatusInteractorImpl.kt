@@ -6,6 +6,7 @@ import com.jarzasa.madridshops.utils.ErrorClosure
 
 class InternetStatusInteractorImpl : InternetStatusInteractor {
     override fun execute(success: CodeClosure, error: ErrorClosure) {
+        //error("No hay conexión a internet")
         success()
     }
 }

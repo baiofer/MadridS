@@ -10,10 +10,6 @@ import android.view.ViewGroup
 import com.jarzasa.madridshops.R
 import com.jarzasa.madridshops.domain.model.Shops
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class MapFragment : Fragment() {
 
     private var shops: Shops? = null
@@ -21,7 +17,6 @@ class MapFragment : Fragment() {
     fun setShops(shops: Shops) {
         this.shops = shops
     }
-
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
