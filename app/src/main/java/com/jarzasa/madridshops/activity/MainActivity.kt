@@ -1,12 +1,18 @@
-package com.jarzasa.madridshops
+package com.jarzasa.madridshops.activity
 
+import android.app.FragmentManager
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.jarzasa.madridshops.R
+import com.jarzasa.madridshops.fragment.MapFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,10 +21,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        val shopsFragment = fragmentManager.findFragmentById(R.id.map) as MapFragment
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
