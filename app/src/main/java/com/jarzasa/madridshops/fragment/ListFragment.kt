@@ -3,10 +3,10 @@ package com.jarzasa.madridshops.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.jarzasa.madridshops.R
 import com.jarzasa.madridshops.domain.model.Shops
 
@@ -16,10 +16,11 @@ import com.jarzasa.madridshops.domain.model.Shops
  */
 class ListFragment : Fragment() {
 
-    private var shops: Shops? = null
+    private var items: Shops? = null
 
-    fun setShops(shops: Shops) {
-        this.shops = shops
+    fun setItems(items: Shops) {
+        this.items = items
+        Log.d("ListFragment", items.count().toString())
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,

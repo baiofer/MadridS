@@ -1,5 +1,7 @@
 package com.jarzasa.madridshops.domain.model
 
+import java.io.Serializable
+
 /**
  * Shop: Represent one shop
  */
@@ -12,12 +14,12 @@ data class Shop(
         val image: String,
         val logo: String,
         val openingHours: String,
-        val address: String)
+        val address: String): Serializable
 
 /**
  * Shops: Represent a list of Shop
  */
-class Shops( val shops: MutableList<Shop>): Aggregate<Shop> {
+class Shops( val shops: MutableList<Shop>): Aggregate<Shop>, Serializable {
     override fun count() = shops.size
 
     override fun all() = shops

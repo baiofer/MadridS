@@ -55,7 +55,6 @@ class EntranceActivity : AppCompatActivity() {
     fun checkInternetStatus() {
         InternetStatusInteractorImpl().execute(
                 success = {
-                    getAll()
                     enableButtons()
                     activeButtons()
                 },
@@ -87,14 +86,15 @@ class EntranceActivity : AppCompatActivity() {
     }
 
     private fun activeButtons() {
-        //shop_button.text = "TIENDAS"
 
         shop_button.setOnClickListener {
             Router().navigateFromEntranceToShops(this)
         }
+
         activity_button.setOnClickListener {
             Router().navigateFromEntranceToActivities(this)
         }
+
         delete_button.setOnClickListener {
             deleteAll()
         }
@@ -117,37 +117,5 @@ class EntranceActivity : AppCompatActivity() {
         })
 
         userMessages.text = ""
-    }
-
-    fun getAll() {
-        //Get Shops
-        val allShopsInteractor = GetAllShopsInteractorImpl(this)
-        allShopsInteractor.execute(
-                success = object: SuccessCompletion<Shops> {
-                    override fun successCompletion(e: Shops) {
-                        Log.d("Success", "Shops OK")
-                    }
-                },
-                error = object: ErrorCompletion {
-                    override fun errorCompletion(errorMessage: String) {
-                        Log.d("Error", "Shops mal")
-                    }
-                }
-        )
-
-        //Get Activities
-        val allActivitiesInteractor = GetAllActivitiesInteractorImpl(this)
-        allActivitiesInteractor.execute(
-                success = object: SuccessCompletion<Activities> {
-                    override fun successCompletion(e: Activities) {
-                        Log.d("Success", "Activities OK")
-                    }
-                },
-                error = object: ErrorCompletion {
-                    override fun errorCompletion(errorMessage: String) {
-                        Log.d("Error", "Activities mal")
-                    }
-                }
-        )
     }
 }

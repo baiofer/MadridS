@@ -1,5 +1,7 @@
 package com.jarzasa.madridshops.domain.model
 
+import java.io.Serializable
+
 /**
  * Activity: Represent one activity
  */
@@ -12,12 +14,12 @@ data class Activity(
         val image: String,
         val logo: String,
         val openingHours: String,
-        val address: String)
+        val address: String): Serializable
 
 /**
  * Activities: Represent a list of Activity
  */
-class Activities( val activities: MutableList<Activity>): Aggregate<Activity> {
+class Activities( val activities: MutableList<Activity>): Aggregate<Activity>, Serializable {
     override fun count() = activities.size
 
     override fun all() = activities
