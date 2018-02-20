@@ -1,16 +1,24 @@
 package com.jarzasa.madridshops
 
-import android.content.Intent
 import android.support.multidex.MultiDexApplication
-import com.jarzasa.madridshops.activity.EntranceActivity
+import com.jarzasa.madridshops.router.Router
+import com.squareup.picasso.Picasso
 
 class MadridShopsApp: MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
 
-        val intent: Intent = EntranceActivity.intent(this)
-        startActivity(intent)
+        //Initialize Picasso
+        Picasso.with(this).setIndicatorsEnabled(true)
+        Picasso.with(this).isLoggingEnabled()
+
+        //Starts the application
+        Router().navigateFromMadridShopsAppToEntrance(this)
+        //val intent: Intent = EntranceActivity.intent(this)
+        //val intent: Intent = PicassoActivity.intent(this)
+        //startActivity(intent)
+
     }
 
     override fun onLowMemory() {

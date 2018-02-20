@@ -19,12 +19,22 @@ data class Shop(
 /**
  * Shops: Represent a list of Shop
  */
-class Shops( val shops: MutableList<Shop>): Aggregate<Shop>, Serializable {
+class Shops( val shops: MutableList<Shop>): Aggregate<Shop>, Serializable, Iterator<Shop> by shops.iterator() {
+
     override fun count() = shops.size
 
     override fun all() = shops
 
     override fun get(position: Int) = shops.get(position)
+
+    override fun get(name: String): Shop? {
+        for (shop in 0..shops.count() -1) {
+            if (shops[shop].name == name) {
+                return shops[shop]
+            }
+        }
+        return null
+    }
 
     override fun add(element: Shop) {
         shops.add(element)

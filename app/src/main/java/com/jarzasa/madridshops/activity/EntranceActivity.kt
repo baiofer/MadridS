@@ -12,14 +12,8 @@ import android.view.View
 import com.jarzasa.madridshops.R
 import com.jarzasa.madridshops.domain.interactors.deleteallactivities.DeleteAllActivitiesInteractorImpl
 import com.jarzasa.madridshops.domain.interactors.deleteallshops.DeleteAllShopsInteractorImpl
-import com.jarzasa.madridshops.domain.interactors.getallactivities.GetAllActivitiesInteractorImpl
-import com.jarzasa.madridshops.domain.interactors.getallshops.GetAllShopsInteractorImpl
 import com.jarzasa.madridshops.domain.interactors.internetstatus.InternetStatusInteractorImpl
-import com.jarzasa.madridshops.domain.model.Activities
-import com.jarzasa.madridshops.domain.model.Shops
-import com.jarzasa.madridshops.navigation.Router
-import com.jarzasa.madridshops.utils.ErrorCompletion
-import com.jarzasa.madridshops.utils.SuccessCompletion
+import com.jarzasa.madridshops.router.Router
 import kotlinx.android.synthetic.main.activity_entrance.*
 
 class EntranceActivity : AppCompatActivity() {

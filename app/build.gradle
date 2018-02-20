@@ -52,4 +52,5 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.2'
     //https://developers.google.com/android/guides/setup
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

@@ -22,12 +22,8 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
     val isShop: Boolean = if (obj is ShopEntity) true else false
 
 
-    private fun cacheShopsDBHelper(): DBHelper {
+    private fun cacheDBHelper(): DBHelper {
         return build(weakContext.get()!!, BuildConfig.DB_SHOPS_NAME, 1)
-    }
-
-    private fun cacheActivitiesDBHelper(): DBHelper {
-        return build(weakContext.get()!!, BuildConfig.DB_ACTIVITIES_NAME, 1)
     }
 
     /*
@@ -35,7 +31,7 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
      */
     override fun getAllShops(success: SuccessClosure, error: ErrorClosure) {
         Thread(Runnable {
-            val shops = ShopDAO(cacheShopsDBHelper()).query()
+            val shops = ShopDAO(cacheDBHelper()).query()
 
             DispatchOnMainThread(Runnable {
                 if (shops.count() > 0) success(shops) else error("No shops. Table SHOPS is empty")
@@ -45,7 +41,7 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
 
     override fun getAllActivities(success: SuccessClosureActivity, error: ErrorClosure) {
         Thread(Runnable {
-            val activities = ActivityDAO(cacheActivitiesDBHelper()).query()
+            val activities = ActivityDAO(cacheDBHelper()).query()
 
             DispatchOnMainThread(Runnable {
                 if (activities.count() > 0) success(activities) else error("No activities. Table ACTIVITIES is empty")
@@ -59,7 +55,7 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
     override fun saveAllShops(shops: List<ShopEntity>, success: CodeClosure, error: ErrorClosure) {
         Thread(Runnable {
             try {
-                shops.forEach { ShopDAO(cacheShopsDBHelper()).insert(it) }
+                shops.forEach { ShopDAO(cacheDBHelper()).insert(it) }
                 DispatchOnMainThread(Runnable {
                     success()
                 })
@@ -74,7 +70,7 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
     override fun saveAllActivities(activities: List<ActivityEntity>, success: CodeClosure, error: ErrorClosure) {
         Thread(Runnable {
             try {
-                activities.forEach { ActivityDAO(cacheActivitiesDBHelper()).insert(it) }
+                activities.forEach { ActivityDAO(cacheDBHelper()).insert(it) }
                 DispatchOnMainThread(Runnable {
                     success()
                 })
@@ -100,7 +96,7 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
 
     fun deleteAllShops(success: CodeClosure, error: ErrorClosure) {
         Thread(Runnable {
-            val successDeleting = ShopDAO(cacheShopsDBHelper()).deleteAll()
+            val successDeleting = ShopDAO(cacheDBHelper()).deleteAll()
 
             DispatchOnMainThread(Runnable {
                 if (successDeleting) success() else error("Error deleting all Shops")
@@ -110,7 +106,7 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
 
     fun deleteAllActivities(success: CodeClosure, error: ErrorClosure) {
         Thread(Runnable {
-            val successDeleting = ActivityDAO(cacheActivitiesDBHelper()).deleteAll()
+            val successDeleting = ActivityDAO(cacheDBHelper()).deleteAll()
 
             DispatchOnMainThread(Runnable {
                 if (successDeleting) success() else error("Error deleting all Activities")

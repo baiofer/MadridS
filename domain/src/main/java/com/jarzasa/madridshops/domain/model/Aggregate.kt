@@ -6,6 +6,7 @@ internal interface ReadAggregate<T> {
     fun count(): Int
     fun all(): List<T>
     fun get(position: Int): T
+    fun get(name: String): T?
 }
 
 internal interface WriteAggregate<T> {
