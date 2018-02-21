@@ -58,8 +58,6 @@
         </activity>
         <activity android:name=".activity.DetailActivityActivity">
         </activity>
-        <activity android:name=".activity.PicassoActivity">
-        </activity>
     </application>
 
 </manifest>

@@ -7,7 +7,6 @@ import com.jarzasa.madridshops.R
 import com.jarzasa.madridshops.domain.model.Shop
 import com.jarzasa.madridshops.utils.INTENT_SHOP_DETAIL
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_picasso.*
 import kotlinx.android.synthetic.main.activity_shop_detail.*
 
 class ShopDetailActivity : AppCompatActivity() {
@@ -20,7 +19,7 @@ class ShopDetailActivity : AppCompatActivity() {
         val shop = intent.getSerializableExtra(INTENT_SHOP_DETAIL) as Shop
 
         shop_detail_text_view.text = shop.name
-        val image = Picasso.with(this)
+        Picasso.with(this)
                 .load(shop.image)
                 .placeholder(android.R.drawable.btn_radio)
                 .into(shop_detail_image)

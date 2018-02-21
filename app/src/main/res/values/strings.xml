@@ -2,7 +2,11 @@
     <string name="app_name">MadridShops</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_text">Default</string>
+    <string name="opening_hours">opening_hours</string>
+    <string name="deleting_cache">Borrando Cache</string>
+    <string name="shops">TIENDAS</string>
+    <string name="delete_cache">BORRAR CACHE</string>
+    <string name="activities">ACTIVIDADES</string>
 
 </resources>

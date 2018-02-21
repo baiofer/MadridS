@@ -18,7 +18,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.jarzasa.madridshops.R
 import com.jarzasa.madridshops.domain.interactors.getallshops.GetAllShopsInteractorImpl
-import com.jarzasa.madridshops.domain.model.Shop
 import com.jarzasa.madridshops.domain.model.Shops
 import com.jarzasa.madridshops.fragment.ListFragment
 import com.jarzasa.madridshops.router.Router
@@ -127,7 +126,6 @@ class ShopsActivity : AppCompatActivity() {
             }
             map = it
             addAllPins(shops)
-
         })
     }
 

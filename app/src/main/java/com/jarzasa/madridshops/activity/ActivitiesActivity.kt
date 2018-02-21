@@ -160,7 +160,6 @@ class ActivitiesActivity : AppCompatActivity() {
             //Alert al usuario. Necesitamos su localización para acceder a las tiendas
             return
         }
-
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

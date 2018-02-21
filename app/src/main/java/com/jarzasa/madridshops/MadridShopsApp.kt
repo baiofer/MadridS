@@ -13,12 +13,8 @@ class MadridShopsApp: MultiDexApplication() {
         Picasso.with(this).setIndicatorsEnabled(true)
         Picasso.with(this).isLoggingEnabled()
 
-        //Starts the application
+        //Begins app
         Router().navigateFromMadridShopsAppToEntrance(this)
-        //val intent: Intent = EntranceActivity.intent(this)
-        //val intent: Intent = PicassoActivity.intent(this)
-        //startActivity(intent)
-
     }
 
     override fun onLowMemory() {
