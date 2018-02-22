@@ -16,11 +16,23 @@
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activities_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_weight="1">
+    </android.support.v7.widget.RecyclerView>
+
+    <!--
+
     <fragment
         android:id="@+id/activity_activities_list_fragment"
         android:name="com.jarzasa.madridshops.fragment.ActivityListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />
+
+        -->
 
 </LinearLayout>

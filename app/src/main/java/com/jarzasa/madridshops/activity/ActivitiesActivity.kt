@@ -7,8 +7,12 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -16,9 +20,13 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.jarzasa.madridshops.R
+import com.jarzasa.madridshops.adapters.ActivitiesRecyclerAdapter
+import com.jarzasa.madridshops.adapters.ShopsRecyclerAdapter
 import com.jarzasa.madridshops.domain.interactors.getallactivities.GetAllActivitiesInteractor
 import com.jarzasa.madridshops.domain.interactors.getallactivities.GetAllActivitiesInteractorImpl
+import com.jarzasa.madridshops.domain.interactors.getallshops.GetAllShopsInteractorImpl
 import com.jarzasa.madridshops.domain.model.Activities
+import com.jarzasa.madridshops.domain.model.Shops
 import com.jarzasa.madridshops.fragment.ActivityListFragment
 import com.jarzasa.madridshops.router.Router
 import com.jarzasa.madridshops.utils.ErrorCompletion
@@ -26,15 +34,15 @@ import com.jarzasa.madridshops.utils.SuccessCompletion
 
 class ActivitiesActivity : AppCompatActivity() {
 
-    private var listFragment: ActivityListFragment? = null
+    //private var listFragment: ActivityListFragment? = null
+    private lateinit var activitiesRecycler: RecyclerView
     lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_activities)
 
-        setupMap()
-        setupList()
+        downloadActivities()
 
         //Activo el botón de back de la barra
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -49,6 +57,38 @@ class ActivitiesActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    //Download Activities
+    private fun downloadActivities() {
+        val allActivitiesInteractor = GetAllActivitiesInteractorImpl(this)
+        allActivitiesInteractor.execute(
+                success = object: SuccessCompletion<Activities> {
+                    override fun successCompletion(activities: Activities) {
+
+                        //listFragment = supportFragmentManager.findFragmentById(R.id.activity_shops_list_fragment) as ListFragment
+                        //listFragment?.setItems(shops)
+                        initialiceMaps(activities)
+                        initialiceList(activities)
+                    }
+                },
+                error = object: ErrorCompletion {
+                    override fun errorCompletion(errorMessage: String) {
+                        AlertDialog.Builder(this@ActivitiesActivity)
+                                .setTitle("ERROR")
+                                .setMessage(errorMessage)
+                                .setPositiveButton("Intentar", { dialog, witch ->
+                                    dialog.dismiss()
+                                    downloadActivities()
+                                })
+                                .setNegativeButton("Salir",  { dialog, which ->
+                                    finish()
+                                })
+                                .show()
+                    }
+                }
+        )
+    }
+
+/*
     private fun setupMap() {
 
         val allActivitiesInteractor: GetAllActivitiesInteractor = GetAllActivitiesInteractorImpl(this)
@@ -104,6 +144,21 @@ class ActivitiesActivity : AppCompatActivity() {
                     }
                 }
         )
+    }
+*/
+    private fun initialiceList(activities: Activities) {
+
+        activitiesRecycler = findViewById(R.id.activities_recycler_view) as RecyclerView
+        activitiesRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        activitiesRecycler.itemAnimator = DefaultItemAnimator()
+        val adapter = ActivitiesRecyclerAdapter(activities!!)
+        adapter.onClickListener = View.OnClickListener {
+            val position = activitiesRecycler.getChildAdapterPosition(it)
+            val activity = activities.get(position)
+            Router().navigateFromActivitiesToActivityDetail(this, activity)
+        }
+        activitiesRecycler.adapter = adapter
+
     }
 
     private fun initialiceMaps(activities: Activities) {

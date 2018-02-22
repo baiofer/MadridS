@@ -8,8 +8,12 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -17,6 +21,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.jarzasa.madridshops.R
+import com.jarzasa.madridshops.adapters.ShopsRecyclerAdapter
 import com.jarzasa.madridshops.domain.interactors.getallshops.GetAllShopsInteractorImpl
 import com.jarzasa.madridshops.domain.model.Shops
 import com.jarzasa.madridshops.fragment.ListFragment
@@ -26,18 +31,49 @@ import com.jarzasa.madridshops.utils.SuccessCompletion
 
 class ShopsActivity : AppCompatActivity() {
 
-    var listFragment: ListFragment? = null
-    lateinit var map: GoogleMap
+    //var listFragment: ListFragment? = null
+    private lateinit var shopsRecycler: RecyclerView
+    private lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shops)
 
-        setupMap()
-        setupList()
+        downloadShops()
 
         //Activo el botón de back de la barra
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    //Download Shops
+    private fun downloadShops() {
+        val allShopsInteractor = GetAllShopsInteractorImpl(this)
+        allShopsInteractor.execute(
+                success = object: SuccessCompletion<Shops> {
+                    override fun successCompletion(shops: Shops) {
+
+                        //listFragment = supportFragmentManager.findFragmentById(R.id.activity_shops_list_fragment) as ListFragment
+                        //listFragment?.setItems(shops)
+                        initialiceMaps(shops)
+                        initialiceList(shops)
+                    }
+                },
+                error = object: ErrorCompletion {
+                    override fun errorCompletion(errorMessage: String) {
+                        AlertDialog.Builder(this@ShopsActivity)
+                                .setTitle("ERROR")
+                                .setMessage(errorMessage)
+                                .setPositiveButton("Intentar", { dialog, witch ->
+                                    dialog.dismiss()
+                                    downloadShops()
+                                })
+                                .setNegativeButton("Salir",  { dialog, which ->
+                                    finish()
+                                })
+                                .show()
+                    }
+                }
+        )
     }
 
     //Si pulsan el botón Back, salgo de la actividad sin mas y vuelvo a la anterior
@@ -48,7 +84,7 @@ class ShopsActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
+/*
     private fun setupMap() {
 
         val allShopsInteractor = GetAllShopsInteractorImpl(this)
@@ -104,6 +140,21 @@ class ShopsActivity : AppCompatActivity() {
                     }
                 }
         )
+    }
+*/
+    private fun initialiceList(shops: Shops) {
+
+        shopsRecycler = findViewById(R.id.shops_recycler_view) as RecyclerView
+        shopsRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        shopsRecycler.itemAnimator = DefaultItemAnimator()
+        val adapter = ShopsRecyclerAdapter(shops!!)
+        adapter.onClickListener = View.OnClickListener {
+            val position = shopsRecycler.getChildAdapterPosition(it)
+            val shop = shops.get(position)
+            Router().navigateFromShopsToShopDetail(this, shop)
+        }
+        shopsRecycler.adapter = adapter
+
     }
 
     private fun initialiceMaps(shops: Shops) {
