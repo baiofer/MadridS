@@ -62,12 +62,12 @@ class ActivitiesActivity : AppCompatActivity() {
         val allActivitiesInteractor = GetAllActivitiesInteractorImpl(this)
         allActivitiesInteractor.execute(
                 success = object: SuccessCompletion<Activities> {
-                    override fun successCompletion(activities: Activities) {
+                    override fun successCompletion(e: Activities) {
 
                         //listFragment = supportFragmentManager.findFragmentById(R.id.activity_shops_list_fragment) as ListFragment
                         //listFragment?.setItems(shops)
-                        initialiceMaps(activities)
-                        initialiceList(activities)
+                        initialiceMaps(e)
+                        initialiceList(e)
                     }
                 },
                 error = object: ErrorCompletion {
@@ -151,7 +151,7 @@ class ActivitiesActivity : AppCompatActivity() {
         activitiesRecycler = findViewById(R.id.activities_recycler_view) as RecyclerView
         activitiesRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         activitiesRecycler.itemAnimator = DefaultItemAnimator()
-        val adapter = ActivitiesRecyclerAdapter(activities!!)
+        val adapter = ActivitiesRecyclerAdapter(activities)
         adapter.onClickListener = View.OnClickListener {
             val position = activitiesRecycler.getChildAdapterPosition(it)
             val activity = activities.get(position)
@@ -215,6 +215,7 @@ class ActivitiesActivity : AppCompatActivity() {
             //Alert al usuario. Necesitamos su localización para acceder a las tiendas
             return
         }
+        map.isMyLocationEnabled = true
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

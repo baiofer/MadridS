@@ -26,19 +26,8 @@ class ActivityListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val root = inflater!!.inflate(R.layout.fragment_list, container, false)
+        val root = inflater!!.inflate(R.layout.fragment_activity_list, container, false)
 
-        //Creamos el RecyclerView con la lista de actividades
-        //Montamos el RecyclerView
-        // Le decimos su LayoutManager
-        activities_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        // Le decimos cómo se anima
-        activities_list.itemAnimator = DefaultItemAnimator()
-        // Creamos el adapter
-        val adapter = ActivitiesRecyclerViewAdapter(activity, items as MutableList<Activity>)
-
-        // Le decimos su adapter
-        activities_list.adapter = adapter
 
         return root
     }

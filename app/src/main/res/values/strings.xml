@@ -8,5 +8,9 @@
     <string name="shops">TIENDAS</string>
     <string name="delete_cache">BORRAR CACHE</string>
     <string name="activities">ACTIVIDADES</string>
+    <string name="activity_image">Activity Image</string>
+    <string name="shop_image">Shop Image</string>
+    <string name="textview">TextView</string>
+    <string name="item_image">Item Image</string>
 
 </resources>

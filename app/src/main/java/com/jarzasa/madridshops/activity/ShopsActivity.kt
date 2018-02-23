@@ -24,7 +24,6 @@ import com.jarzasa.madridshops.R
 import com.jarzasa.madridshops.adapters.ShopsRecyclerAdapter
 import com.jarzasa.madridshops.domain.interactors.getallshops.GetAllShopsInteractorImpl
 import com.jarzasa.madridshops.domain.model.Shops
-import com.jarzasa.madridshops.fragment.ListFragment
 import com.jarzasa.madridshops.router.Router
 import com.jarzasa.madridshops.utils.ErrorCompletion
 import com.jarzasa.madridshops.utils.SuccessCompletion
@@ -50,12 +49,12 @@ class ShopsActivity : AppCompatActivity() {
         val allShopsInteractor = GetAllShopsInteractorImpl(this)
         allShopsInteractor.execute(
                 success = object: SuccessCompletion<Shops> {
-                    override fun successCompletion(shops: Shops) {
+                    override fun successCompletion(e: Shops) {
 
                         //listFragment = supportFragmentManager.findFragmentById(R.id.activity_shops_list_fragment) as ListFragment
                         //listFragment?.setItems(shops)
-                        initialiceMaps(shops)
-                        initialiceList(shops)
+                        initialiceMaps(e)
+                        initialiceList(e)
                     }
                 },
                 error = object: ErrorCompletion {
@@ -147,7 +146,7 @@ class ShopsActivity : AppCompatActivity() {
         shopsRecycler = findViewById(R.id.shops_recycler_view) as RecyclerView
         shopsRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         shopsRecycler.itemAnimator = DefaultItemAnimator()
-        val adapter = ShopsRecyclerAdapter(shops!!)
+        val adapter = ShopsRecyclerAdapter(shops)
         adapter.onClickListener = View.OnClickListener {
             val position = shopsRecycler.getChildAdapterPosition(it)
             val shop = shops.get(position)
@@ -191,11 +190,11 @@ class ShopsActivity : AppCompatActivity() {
 
     fun addAllPins(shops: Shops) {
         shops.forEach {
-            addPin(map, it.latitude.toDouble(), it.longitude.toDouble(), it.name, it.id)
+            addPin(map, it.latitude.toDouble(), it.longitude.toDouble(), it.name)
         }
     }
 
-    fun addPin(map: GoogleMap, latitude: Double, longitude: Double, title: String, id: Int) {
+    fun addPin(map: GoogleMap, latitude: Double, longitude: Double, title: String) {
         map.addMarker(MarkerOptions()
                 .position(LatLng(latitude, longitude))
                 .title(title))
