@@ -24,6 +24,8 @@ import com.jarzasa.madridshops.utils.ErrorCompletion
 import com.jarzasa.madridshops.utils.SuccessCompletion
 import com.jarzasa.madridshops.utils.addPin
 import com.jarzasa.madridshops.utils.centerMapInPosition
+import kotlinx.android.synthetic.main.activity_activities.*
+import kotlinx.android.synthetic.main.activity_shops.*
 
 class ActivitiesActivity : AppCompatActivity() {
 
@@ -51,12 +53,14 @@ class ActivitiesActivity : AppCompatActivity() {
 
     //Download Activities
     private fun downloadActivities() {
+        activity_list_progress_bar.visibility = View.VISIBLE
         val allActivitiesInteractor = GetAllActivitiesInteractorImpl(this)
         allActivitiesInteractor.execute(
                 success = object: SuccessCompletion<Activities> {
                     override fun successCompletion(e: Activities) {
                         initialiceMaps(e)
                         initialiceList(e)
+                        activity_list_progress_bar.visibility = View.INVISIBLE
                     }
                 },
                 error = object: ErrorCompletion {

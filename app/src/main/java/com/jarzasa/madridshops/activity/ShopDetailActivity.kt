@@ -34,11 +34,10 @@ class ShopDetailActivity : AppCompatActivity() {
         shop_detail_text_view.text = shop.description
         Picasso.with(this)
                 .load(shop.image)
-                .placeholder(android.R.drawable.btn_radio)
+                .placeholder(R.drawable.madrid)
                 .into(shop_detail_image)
 
-        initialiceMaps(shop)
-
+        initialiceMap(shop)
 
         //Activo el botón de back de la barra
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -54,7 +53,7 @@ class ShopDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initialiceMaps(shop: Shop) {
+    private fun initialiceMap(shop: Shop) {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.shop_detail_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync({
             //centerMapInPosition(map, 42.9017754, -2.3397827) // Zalduondo

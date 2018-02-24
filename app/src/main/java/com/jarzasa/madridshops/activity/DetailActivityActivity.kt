@@ -31,10 +31,10 @@ class DetailActivityActivity : AppCompatActivity() {
         activity_detail_text_view.text = activity.description
         Picasso.with(this)
                 .load(activity.image)
-                .placeholder(android.R.drawable.btn_radio)
+                .placeholder(R.drawable.madrid)
                 .into(activity_detail_image)
 
-        initialiceMaps(activity)
+        initialiceMap(activity)
 
         //Activo el botón de back de la barra
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -50,7 +50,7 @@ class DetailActivityActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initialiceMaps(activity: Activity) {
+    private fun initialiceMap(activity: Activity) {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.activity_detail_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync({
             centerMapInPosition(it, activity.latitude.toDouble(), activity.longitude.toDouble(), 15f)
