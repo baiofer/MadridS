@@ -10,8 +10,8 @@ class MadridShopsApp: MultiDexApplication() {
         super.onCreate()
 
         //Initialize Picasso
-        Picasso.with(this).setIndicatorsEnabled(true)
-        Picasso.with(this).isLoggingEnabled()
+        //Picasso.with(this).setIndicatorsEnabled(true)
+        //Picasso.with(this).isLoggingEnabled()
 
         //Begins app
         Router().navigateFromMadridShopsAppToEntrance(this)

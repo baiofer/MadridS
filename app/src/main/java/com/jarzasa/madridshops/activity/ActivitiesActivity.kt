@@ -40,6 +40,7 @@ class ActivitiesActivity : AppCompatActivity() {
 
         //Activo el botón de back de la barra
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "MadridShops / Actividades"
     }
 
     //Si pulsan el botón Back, salgo de la actividad sin mas y vuelvo a la anterior

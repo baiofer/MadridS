@@ -40,6 +40,7 @@ class ShopsActivity : AppCompatActivity() {
 
         //Activo el botón de back de la barra
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "MadridShops / Tiendas"
     }
 
     //Download Shops

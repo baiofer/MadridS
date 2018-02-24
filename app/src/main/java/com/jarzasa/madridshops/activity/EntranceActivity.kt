@@ -65,7 +65,6 @@ class EntranceActivity : AppCompatActivity() {
         delete_button.setOnClickListener {
             deleteAll()
         }
-        Log.d("Entrance", "activeButtons")
     }
 
     private fun deleteAll() {

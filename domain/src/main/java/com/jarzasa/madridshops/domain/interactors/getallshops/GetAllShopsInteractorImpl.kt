@@ -18,7 +18,7 @@ class GetAllShopsInteractorImpl(context: Context): GetAllShopsInteractor {
     override fun execute(success: SuccessCompletion<Shops>, error: ErrorCompletion) {
         repository.getAllShops(
                 success = {
-                    Log.d("SHOPS", it.count().toString())
+                    //Log.d("SHOPS", it.count().toString())
                     val shops: Shops = entityMapper(it)
                     success.successCompletion(shops)
                 }, error = {
