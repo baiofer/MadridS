@@ -50,7 +50,7 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
     }
 
     /*
-     * saveAll function
+     * saveAll functions
      */
     override fun saveAllShops(shops: List<ShopEntity>, success: CodeClosure, error: ErrorClosure) {
         Thread(Runnable {
@@ -83,18 +83,9 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
     }
 
     /*
-     * deleteAll function
+     * deleteAll functions
      */
-
-    override fun deleteAll(success: CodeClosure, error: ErrorClosure) {
-        if (isShop) {
-            deleteAllShops(success, error)
-        } else {
-            deleteAllActivities(success, error)
-        }
-    }
-
-    fun deleteAllShops(success: CodeClosure, error: ErrorClosure) {
+    override fun deleteAllShops(success: CodeClosure, error: ErrorClosure) {
         Thread(Runnable {
             val successDeleting = ShopDAO(cacheDBHelper()).deleteAll()
 
@@ -104,7 +95,7 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
         }).run()
     }
 
-    fun deleteAllActivities(success: CodeClosure, error: ErrorClosure) {
+    override fun deleteAllActivities(success: CodeClosure, error: ErrorClosure) {
         Thread(Runnable {
             val successDeleting = ActivityDAO(cacheDBHelper()).deleteAll()
 
@@ -113,5 +104,4 @@ internal class CacheImpl<T>(context: Context) : Cache<T> {
             })
         }).run()
     }
-
 }

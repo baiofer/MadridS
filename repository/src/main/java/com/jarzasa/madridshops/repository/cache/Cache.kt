@@ -8,9 +8,13 @@ import com.jarzasa.madridshops.utils.CodeClosure
 import com.jarzasa.madridshops.utils.ErrorClosure
 
 internal interface Cache<T> {
+    //Get
     fun getAllShops(success: SuccessClosure, error: ErrorClosure)
     fun getAllActivities(success: SuccessClosureActivity, error: ErrorClosure)
-    fun saveAllShops(saveItems: List<ShopEntity>, success: CodeClosure, error: ErrorClosure)
-    fun saveAllActivities(saveItems: List<ActivityEntity>, success: CodeClosure, error: ErrorClosure)
-    fun deleteAll(success: CodeClosure, error: ErrorClosure)
+    //Save
+    fun saveAllShops(shops: List<ShopEntity>, success: CodeClosure, error: ErrorClosure)
+    fun saveAllActivities(activities: List<ActivityEntity>, success: CodeClosure, error: ErrorClosure)
+    //Delete
+    fun deleteAllShops(success: CodeClosure, error: ErrorClosure)
+    fun deleteAllActivities(success: CodeClosure, error: ErrorClosure)
 }

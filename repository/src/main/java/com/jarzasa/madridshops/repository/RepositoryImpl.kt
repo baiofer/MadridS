@@ -97,13 +97,11 @@ class RepositoryImpl(context: Context) : Repository {
 
     override fun deleteAllShops(success: CodeClosure, error: ErrorClosure) {
         val cache: Cache<ShopEntity> = CacheImpl<ShopEntity>(weakContext.get()!!)
-        cache.deleteAll(success, error)
+        cache.deleteAllShops(success, error)
     }
 
     override fun deleteAllActivities(success: CodeClosure, error: ErrorClosure) {
         val cache: Cache<ActivityEntity> = CacheImpl<ActivityEntity>(weakContext.get()!!)
-        cache.deleteAll(success, error)
+        cache.deleteAllActivities(success, error)
     }
-
-
 }
