@@ -34,7 +34,7 @@ class EntranceActivity : AppCompatActivity() {
                             .setMessage(it)
                             .setPositiveButton("Intentar", { dialog, witch ->
                                 dialog.dismiss()
-                                checkInternetStatus()
+                                //checkInternetStatus()
                             })
                             .setNegativeButton("Salir",  { dialog, which ->
                                 finish()

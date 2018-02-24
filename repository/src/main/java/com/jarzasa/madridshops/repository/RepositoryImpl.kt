@@ -1,6 +1,7 @@
 package com.jarzasa.madridshops.repository
 
 import android.content.Context
+import android.util.Log
 import com.jarzasa.madridshops.repository.cache.Cache
 import com.jarzasa.madridshops.repository.cache.CacheImpl
 import com.jarzasa.madridshops.repository.model.ActivitiesResponseEntity
@@ -29,6 +30,7 @@ class RepositoryImpl(context: Context) : Repository {
                     success(it)
                 }, error = {
                     //if no shops in cache --> network
+                    //Log.d("SHOPS", "No shops in cache")
                     populateCacheShops(success, error)
                 })
     }

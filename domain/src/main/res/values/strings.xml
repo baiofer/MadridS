@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Domain</string>
+    <string name="not_internet">No hay conexión a internet</string>
 </resources>

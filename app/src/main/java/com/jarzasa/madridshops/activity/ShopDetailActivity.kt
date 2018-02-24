@@ -15,6 +15,8 @@ import com.jarzasa.madridshops.domain.model.Shop
 import com.jarzasa.madridshops.domain.model.Shops
 import com.jarzasa.madridshops.router.Router
 import com.jarzasa.madridshops.utils.INTENT_SHOP_DETAIL
+import com.jarzasa.madridshops.utils.addPin
+import com.jarzasa.madridshops.utils.centerMapInPosition
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_shop_detail.*
 
@@ -56,29 +58,12 @@ class ShopDetailActivity : AppCompatActivity() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.shop_detail_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync({
             //centerMapInPosition(map, 42.9017754, -2.3397827) // Zalduondo
-            centerMapInPosition(it, shop.latitude.toDouble(), shop.longitude.toDouble() )
+            centerMapInPosition(it, shop.latitude.toDouble(), shop.longitude.toDouble(), 15f)
             //Configuramos los settings del mapa
             it.uiSettings.isRotateGesturesEnabled = false  //No dejo girar el mapa con dos dedos)
             it.uiSettings.isZoomControlsEnabled = true     //Aparecen los controles de zoom
             map = it
             addPin(map, shop.latitude.toDouble(), shop.longitude.toDouble(), shop.name, shop.address)
         })
-    }
-
-    fun centerMapInPosition(map: GoogleMap, latitude: Double, longitude: Double) {
-        val coordinate = LatLng(latitude, longitude)
-        val cameraPosition = CameraPosition.Builder()
-                .target(coordinate)
-                .zoom(15f)
-                .build()
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-    }
-
-    fun addPin(map: GoogleMap, latitude: Double, longitude: Double, title: String, address: String) {
-        map.addMarker(MarkerOptions()
-                .position(LatLng(latitude, longitude))
-                .title(title))
-                .snippet = address
-
     }
 }

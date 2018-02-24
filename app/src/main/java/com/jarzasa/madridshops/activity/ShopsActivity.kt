@@ -14,12 +14,8 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.jarzasa.madridshops.R
 import com.jarzasa.madridshops.adapters.ShopsRecyclerAdapter
 import com.jarzasa.madridshops.domain.interactors.getallshops.GetAllShopsInteractorImpl
@@ -27,10 +23,11 @@ import com.jarzasa.madridshops.domain.model.Shops
 import com.jarzasa.madridshops.router.Router
 import com.jarzasa.madridshops.utils.ErrorCompletion
 import com.jarzasa.madridshops.utils.SuccessCompletion
+import com.jarzasa.madridshops.utils.addPin
+import com.jarzasa.madridshops.utils.centerMapInPosition
 
 class ShopsActivity : AppCompatActivity() {
 
-    //var listFragment: ListFragment? = null
     private lateinit var shopsRecycler: RecyclerView
     private lateinit var map: GoogleMap
 
@@ -50,9 +47,6 @@ class ShopsActivity : AppCompatActivity() {
         allShopsInteractor.execute(
                 success = object: SuccessCompletion<Shops> {
                     override fun successCompletion(e: Shops) {
-
-                        //listFragment = supportFragmentManager.findFragmentById(R.id.activity_shops_list_fragment) as ListFragment
-                        //listFragment?.setItems(shops)
                         initialiceMaps(e)
                         initialiceList(e)
                     }
@@ -83,64 +77,7 @@ class ShopsActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-/*
-    private fun setupMap() {
 
-        val allShopsInteractor = GetAllShopsInteractorImpl(this)
-        allShopsInteractor.execute(
-                success = object: SuccessCompletion<Shops> {
-                    override fun successCompletion(shops: Shops) {
-                        initialiceMaps(shops)
-                    }
-                },
-                error = object: ErrorCompletion {
-                    override fun errorCompletion(errorMessage: String) {
-                        AlertDialog.Builder(this@ShopsActivity)
-                                .setTitle("ERROR")
-                                .setMessage(errorMessage)
-                                .setPositiveButton("Intentar", { dialog, witch ->
-                                    dialog.dismiss()
-                                    setupMap()
-                                })
-                                .setNegativeButton("Salir",  { dialog, which ->
-                                    finish()
-                                })
-                                .show()
-                    }
-                }
-        )
-    }
-
-    private fun setupList() {
-
-        listFragment = supportFragmentManager.findFragmentById(R.id.activity_shops_list_fragment) as ListFragment
-        val listFragmentInmutable = listFragment
-
-        val allShopsInteractor = GetAllShopsInteractorImpl(this)
-        allShopsInteractor.execute(
-                success = object: SuccessCompletion<Shops> {
-                    override fun successCompletion(shops: Shops) {
-                        listFragmentInmutable?.setItems(shops)
-                    }
-                },
-                error = object: ErrorCompletion {
-                    override fun errorCompletion(errorMessage: String) {
-                        AlertDialog.Builder(this@ShopsActivity)
-                                .setTitle("ERROR")
-                                .setMessage(errorMessage)
-                                .setPositiveButton("Intentar", { dialog, witch ->
-                                    dialog.dismiss()
-                                    setupList()
-                                })
-                                .setNegativeButton("Salir",  { dialog, which ->
-                                    finish()
-                                })
-                                .show()
-                    }
-                }
-        )
-    }
-*/
     private fun initialiceList(shops: Shops) {
 
         shopsRecycler = findViewById(R.id.shops_recycler_view) as RecyclerView
@@ -153,14 +90,12 @@ class ShopsActivity : AppCompatActivity() {
             Router().navigateFromShopsToShopDetail(this, shop)
         }
         shopsRecycler.adapter = adapter
-
     }
 
     private fun initialiceMaps(shops: Shops) {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.activity_shops_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync({
-            //centerMapInPosition(map, 42.9017754, -2.3397827) // Zalduondo
-            centerMapInPosition(it, 40.4168, -3.7038 )
+            centerMapInPosition(it, 40.4168, -3.7038, 13f)
             //Configuramos los settings del mapa
             it.uiSettings.isRotateGesturesEnabled = false  //No dejo girar el mapa con dos dedos)
             it.uiSettings.isZoomControlsEnabled = true     //Aparecen los controles de zoom
@@ -179,25 +114,10 @@ class ShopsActivity : AppCompatActivity() {
         })
     }
 
-    fun centerMapInPosition(map: GoogleMap, latitude: Double, longitude: Double) {
-        val coordinate = LatLng(latitude, longitude)
-        val cameraPosition = CameraPosition.Builder()
-                .target(coordinate)
-                .zoom(13f)
-                .build()
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-    }
-
     fun addAllPins(shops: Shops) {
         shops.forEach {
-            addPin(map, it.latitude.toDouble(), it.longitude.toDouble(), it.name)
+            addPin(map, it.latitude.toDouble(), it.longitude.toDouble(), it.name, it.address)
         }
-    }
-
-    fun addPin(map: GoogleMap, latitude: Double, longitude: Double, title: String) {
-        map.addMarker(MarkerOptions()
-                .position(LatLng(latitude, longitude))
-                .title(title))
     }
 
     fun showUserPosition(context: Context, map: GoogleMap) {
@@ -207,7 +127,6 @@ class ShopsActivity : AppCompatActivity() {
                 != PackageManager.PERMISSION_GRANTED) {
             //Como no tengo permisos, se los pido al usuario
             ActivityCompat.requestPermissions(this, arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), 10)
-            //Alert al usuario. Necesitamos su localización para acceder a las tiendas
             return
         }
         map.isMyLocationEnabled = true
@@ -225,5 +144,4 @@ class ShopsActivity : AppCompatActivity() {
             }
         }
     }
-
 }

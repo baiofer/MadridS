@@ -18,6 +18,7 @@ class GetAllShopsInteractorImpl(context: Context): GetAllShopsInteractor {
     override fun execute(success: SuccessCompletion<Shops>, error: ErrorCompletion) {
         repository.getAllShops(
                 success = {
+                    Log.d("SHOPS", it.count().toString())
                     val shops: Shops = entityMapper(it)
                     success.successCompletion(shops)
                 }, error = {
@@ -28,8 +29,8 @@ class GetAllShopsInteractorImpl(context: Context): GetAllShopsInteractor {
     private fun entityMapper(list: List<ShopEntity>): Shops {
         val tempList = ArrayList<Shop>()
         list.forEach {
-            var lat: Float = 40.4167f
-            var lon: Float = -3.70325f
+            var lat = 40.4167f
+            var lon = -3.70325f
             try {
                 lat = it.gps_lat.toFloat()
                 lon = it.gps_lon.toFloat()

@@ -12,6 +12,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.jarzasa.madridshops.R
 import com.jarzasa.madridshops.domain.model.Activity
 import com.jarzasa.madridshops.utils.INTENT_ACTIVITY_DETAIL
+import com.jarzasa.madridshops.utils.addPin
+import com.jarzasa.madridshops.utils.centerMapInPosition
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_activity.*
 
@@ -34,7 +36,6 @@ class DetailActivityActivity : AppCompatActivity() {
 
         initialiceMaps(activity)
 
-
         //Activo el botón de back de la barra
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = activity.name
@@ -52,30 +53,12 @@ class DetailActivityActivity : AppCompatActivity() {
     private fun initialiceMaps(activity: Activity) {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.activity_detail_map_fragment) as SupportMapFragment
         mapFragment.getMapAsync({
-            //centerMapInPosition(map, 42.9017754, -2.3397827) // Zalduondo
-            centerMapInPosition(it, activity.latitude.toDouble(), activity.longitude.toDouble() )
+            centerMapInPosition(it, activity.latitude.toDouble(), activity.longitude.toDouble(), 15f)
             //Configuramos los settings del mapa
             it.uiSettings.isRotateGesturesEnabled = false  //No dejo girar el mapa con dos dedos)
             it.uiSettings.isZoomControlsEnabled = true     //Aparecen los controles de zoom
             map = it
             addPin(map, activity.latitude.toDouble(), activity.longitude.toDouble(), activity.name, activity.address)
         })
-    }
-
-    fun centerMapInPosition(map: GoogleMap, latitude: Double, longitude: Double) {
-        val coordinate = LatLng(latitude, longitude)
-        val cameraPosition = CameraPosition.Builder()
-                .target(coordinate)
-                .zoom(15f)
-                .build()
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-    }
-
-    fun addPin(map: GoogleMap, latitude: Double, longitude: Double, title: String, address: String?) {
-        map.addMarker(MarkerOptions()
-                .position(LatLng(latitude, longitude))
-                .title(title))
-                .snippet = address
-
     }
 }
